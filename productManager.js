@@ -1,4 +1,5 @@
-const fs = require("fs")
+import fs from "fs"
+const filePath = "Product.json"
 
 class productManager {
 
@@ -31,7 +32,8 @@ class productManager {
                 id = prodPrev[prodPrev.lenght - 1].id + 1
                 code = prodPrev[prodPrev.lenght - 1].code + 1
             }
-            prodPrev.push({ ...objProd, id, code })
+            const newProd = { ...objProd, id, code }
+           prodPrev.push(newProd)
             await fs.promises.writeFile(this.path, JSON.stringify(prodPrev))
         } catch (error) {
             return error
@@ -107,7 +109,7 @@ async function test() {
     const primerInstancia = new productManager("Product.json")
 
     /* ------------------------- AGREGAR PRODUCTO CON ID Y CODE ------------------------ */
-    //await primerInstancia.createProd(productlist)
+    await primerInstancia.createProd(productlist)
     //const products = await primerInstancia.getProduct()
 
 
@@ -127,3 +129,4 @@ async function test() {
 }
 
 test()
+export {productManager}
